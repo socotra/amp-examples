@@ -7,4 +7,4 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Socotra.VinLookup.Tests
-build_property.ProjectDir = /Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/
+build_property.ProjectDir = /Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/
