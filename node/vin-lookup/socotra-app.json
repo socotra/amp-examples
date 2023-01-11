@@ -1,0 +1,85 @@
+{
+  "name": "socotra/example-node-app",
+  "version": "0.2.2",
+  "app": {
+    "fields": []
+  },
+  "socotra": {
+    "autofill": [
+      {
+        "path": "/",
+        "operations": [
+          "newBusiness.*",
+          "renewal.update",
+          "endorsement.update"
+        ]
+      }
+    ],
+    "fields": [
+      {
+        "name": "vin",
+        "title": "VIN",
+        "type": "text",
+        "hint": "input VIN field",
+        "required": true
+      },
+      {
+        "name": "Make",
+        "title": "Make",
+        "type": "text",
+        "hint": "output make field",
+        "required": true
+      },
+      {
+        "name": "Model",
+        "title": "Model",
+        "type": "text",
+        "hint": "output model field",
+        "required": true
+      },
+      {
+        "name": "Model_Year",
+        "title": "Year",
+        "type": "text",
+        "hint": "output year field",
+        "required": true
+      },
+      {
+        "name": "Engine_Number_of_Cylinders",
+        "title": "Number of Cylinders",
+        "type": "text",
+        "hint": "output # of cylinders field"
+      },
+      {
+        "name": "Engine_Model",
+        "title": "Engine Model",
+        "type": "text",
+        "hint": "output engine model field"
+      },
+      {
+        "name": "Engine_Power_kW",
+        "title": "Engine Power (kW)",
+        "type": "text",
+        "hint": "output engine power field"
+      },
+      {
+        "name": "Fuel_Type_Primary",
+        "title": "Fuel Type - Primary",
+        "type": "text",
+        "hint": "output primary fuel type field"
+      },
+      {
+        "name": "Front_Air_Bag_Locations",
+        "title": "Front Air Bag Locations",
+        "type": "text",
+        "hint": "output front air bag location field"
+      },
+      {
+        "name": "Side_Air_Bag_Locations",
+        "title": "Side Air Bag Locations",
+        "type": "text",
+        "hint": "output side air bag location field"
+      }
+    ]
+  }
+}
