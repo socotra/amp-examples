@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+34v9ZhAVOk/tetpwBgffKqvsppw934FejG6jxqm9IltPUT6fJhG55Ljgh5MGdjY+XUoFm6LzcEGjakl2mfDfg==",
+  "dgSpecHash": "9Oc+tNNRh/Qib/vSSTwwtPsfzsp8Dzu0RVz2Xh/1WpN3Ln77cj1t4taFqI3yp8B6/KKFlbSt1/OoAKU5mUl9mQ==",
   "success": true,
-  "projectFilePath": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj",
+  "projectFilePath": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj",
   "expectedPackageFiles": [
     "/Users/lydiamahrens/.nuget/packages/microsoft.aspnetcore.http.abstractions/2.2.0/microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "/Users/lydiamahrens/.nuget/packages/microsoft.aspnetcore.http.features/2.2.0/microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",

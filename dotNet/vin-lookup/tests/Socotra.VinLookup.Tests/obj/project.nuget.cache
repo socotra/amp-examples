@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H1BIukUSSv6sOIdl0U1KhADi43+CzyrkImcXNq/pFYn0EnlFgeTXzHLpwxrU/eKZI7ATU8l3dYt6atzYEE3/Ig==",
+  "dgSpecHash": "wJV6w+d/Jm/lTVDQ1eRamydon3/eHbtkx6aTKr5FXSmaYtVacCcaXxbl6h6YjMNMzLLKKluYFEpQzCsTO80ywA==",
   "success": true,
-  "projectFilePath": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/Socotra.VinLookup.Tests.csproj",
+  "projectFilePath": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/Socotra.VinLookup.Tests.csproj",
   "expectedPackageFiles": [
     "/Users/lydiamahrens/.nuget/packages/castle.core/5.0.0/castle.core.5.0.0.nupkg.sha512",
     "/Users/lydiamahrens/.nuget/packages/coverlet.collector/3.1.2/coverlet.collector.3.1.2.nupkg.sha512",

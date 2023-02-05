@@ -822,13 +822,13 @@
     "/Users/lydiamahrens/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.2.0",
+    "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj",
+      "projectUniqueName": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj",
       "projectName": "Socotra.VinLookup",
-      "projectPath": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj",
+      "projectPath": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj",
       "packagesPath": "/Users/lydiamahrens/.nuget/packages/",
-      "outputPath": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/src/Socotra.VinLookup/obj/",
+      "outputPath": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/src/Socotra.VinLookup/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/lydiamahrens/.nuget/NuGet/NuGet.Config"

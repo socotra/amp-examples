@@ -2058,7 +2058,7 @@
           "build/netcoreapp3.1/xunit.runner.visualstudio.props": {}
         }
       },
-      "Socotra.VinLookup/1.2.0": {
+      "Socotra.VinLookup/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v6.0",
         "dependencies": {
@@ -6879,7 +6879,7 @@
         "xunit.runner.visualstudio.nuspec"
       ]
     },
-    "Socotra.VinLookup/1.2.0": {
+    "Socotra.VinLookup/1.0.0": {
       "type": "project",
       "path": "../../src/Socotra.VinLookup/Socotra.VinLookup.csproj",
       "msbuildProject": "../../src/Socotra.VinLookup/Socotra.VinLookup.csproj"
@@ -6891,7 +6891,7 @@
       "Microsoft.NET.Test.Sdk >= 17.3.2",
       "NSubstitute >= 4.4.0",
       "NSubstitute.Analyzers.CSharp >= 1.0.15",
-      "Socotra.VinLookup >= 1.2.0",
+      "Socotra.VinLookup >= 1.0.0",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.2",
       "xunit.runner.visualstudio >= 2.4.5"
@@ -6901,13 +6901,13 @@
     "/Users/lydiamahrens/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.2.0",
+    "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/Socotra.VinLookup.Tests.csproj",
+      "projectUniqueName": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/Socotra.VinLookup.Tests.csproj",
       "projectName": "Socotra.VinLookup.Tests",
-      "projectPath": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/Socotra.VinLookup.Tests.csproj",
+      "projectPath": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/Socotra.VinLookup.Tests.csproj",
       "packagesPath": "/Users/lydiamahrens/.nuget/packages/",
-      "outputPath": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/",
+      "outputPath": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/lydiamahrens/.nuget/NuGet/NuGet.Config"
@@ -6922,8 +6922,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj": {
-              "projectPath": "/Users/lydiamahrens/Desktop/amp-examples-wip/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj"
+            "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj": {
+              "projectPath": "/Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/src/Socotra.VinLookup/Socotra.VinLookup.csproj"
             }
           }
         }

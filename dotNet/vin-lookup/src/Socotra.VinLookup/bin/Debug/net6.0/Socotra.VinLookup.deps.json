@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "Socotra.VinLookup/1.2": {
+      "Socotra.VinLookup/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.AspNetCore.Mvc.Versioning": "5.0.0",
@@ -139,7 +139,7 @@
     }
   },
   "libraries": {
-    "Socotra.VinLookup/1.2": {
+    "Socotra.VinLookup/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

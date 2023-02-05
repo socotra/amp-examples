@@ -1,85 +1,84 @@
 {
-    "name": "socotra/vin-lookup",
-    "version": "0.1.3",
-    "changeLogFile": "./CHANGELOG.md",
-    "app": {},
-    "socotra": {
-      "autofill": [
-          {
-              "path": "/vehicleLookup",
-              "operations": [
-                  "newBusiness.*",
-                  "endorsement.update",
-                  "renewal.update"
-              ]
-          }
-      ],
-      "fields": [
-        {
-            "name": "vin",
-            "title": "VIN",
-            "hint": "The location of the VIN to be read as input",
-            "type": "text",
-            "required": true
-        },
-        {
-            "name": "make",
-            "title": "Vehicle Make",
-            "hint": "Vehicle make will be written to this field", 
-            "type": "text",
-            "required": true
-        }, 
-        {
-            "name": "model",
-            "title": "Vehicle Model",
-            "hint": "Vehicle model will be written to this field",
-            "type": "text", 
-            "required": true
-        },
-        {
-            "name": "year",
-            "title": "Vehicle Year",
-            "hint": "Vehicle year will be written to this field",
-            "type": "text", 
-            "required": true
-        },
-        {
-            "name": "cylinderNumbers",
-            "title": "Engine Number of Cylinders",
-            "hint": "Number of cylinders of vehicle's engine will be written to this field",
-            "type": "text"
-        },
-        {
-            "name": "engineModel",
-            "title": "Engine Model",
-            "hint": "Vehicle's engine model will be written to this field",
-            "type": "text"
-        },
-        {
-            "name": "enginePower",
-            "title": "Engine Power (kW)",
-            "hint": "Vehicle's engine power, in kilorwatts, will be written to this field",
-            "type": "text"
-        },
-        {
-            "name": "primaryFuelType",
-            "title": "Fuel Type - Primary",
-            "hint": "Vehicle's primary fuel type will be written to this field",
-            "type": "text"
-        },
-        {
-            "name": "frontAirBagLocations",
-            "title": "Front Air Bag Locations",
-            "hint": "Vehicle's front air bag locations will be written to this field",
-            "type": "text"
-        },
-        {
-            "name": "sideAirBagLocations",
-            "title": "Side Air Bag Locations",
-            "hint": "Vehicle's side air bag locations will be written to this field",
-            "type": "text"
-        }
-      ]
-    }
+  "name": "socotra/vin-lookup",
+  "version": "0.1.3",
+  "changeLogFile": "./CHANGELOG.md",
+  "app": {},
+  "socotra": {
+    "autofill": [
+      {
+        "path": "/vehicleLookup",
+        "operations": [
+          "newBusiness.*",
+          "endorsement.update",
+          "renewal.update"
+        ]
+      }
+    ],
+    "fields": [
+      {
+        "name": "vin",
+        "title": "VIN",
+        "hint": "The location of the VIN to be read as input",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "make",
+        "title": "Vehicle Make",
+        "hint": "Vehicle make will be written to this field",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "model",
+        "title": "Vehicle Model",
+        "hint": "Vehicle model will be written to this field",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "year",
+        "title": "Vehicle Year",
+        "hint": "Vehicle year will be written to this field",
+        "type": "text",
+        "required": true
+      },
+      {
+        "name": "cylinderNumbers",
+        "title": "Engine Number of Cylinders",
+        "hint": "Number of cylinders of vehicle's engine will be written to this field",
+        "type": "text"
+      },
+      {
+        "name": "engineModel",
+        "title": "Engine Model",
+        "hint": "Vehicle's engine model will be written to this field",
+        "type": "text"
+      },
+      {
+        "name": "enginePower",
+        "title": "Engine Power (kW)",
+        "hint": "Vehicle's engine power, in kilorwatts, will be written to this field",
+        "type": "text"
+      },
+      {
+        "name": "primaryFuelType",
+        "title": "Fuel Type - Primary",
+        "hint": "Vehicle's primary fuel type will be written to this field",
+        "type": "text"
+      },
+      {
+        "name": "frontAirBagLocations",
+        "title": "Front Air Bag Locations",
+        "hint": "Vehicle's front air bag locations will be written to this field",
+        "type": "text"
+      },
+      {
+        "name": "sideAirBagLocations",
+        "title": "Side Air Bag Locations",
+        "hint": "Vehicle's side air bag locations will be written to this field",
+        "type": "text"
+      }
+    ]
   }
-  
+}

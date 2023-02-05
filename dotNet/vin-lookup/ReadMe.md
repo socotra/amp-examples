@@ -34,9 +34,9 @@ $ socotra-app login
 # build project and its dependencies
 $ dotnet build
 # start and build docker container 
-$ make dr-start
+$ make dr-start-local
 # test locally 
-$ curl -d "@src/Socotra.VinLookup/Models/AutofillPayloadExamples/FieldValues.json" -H "Content-Type: application/json" -X POST http://127.0.0.1:10101/vehicleLookup
+$ curl -d "@src/Socotra.VinLookup/Models/AutofillPayloadExamples/ExposuresPayload.json" -H "Content-Type: application/json" -X POST http://127.0.0.1:10101/vehicleLookup
 ```
 
 ## Deploying the app
@@ -45,16 +45,15 @@ $ curl -d "@src/Socotra.VinLookup/Models/AutofillPayloadExamples/FieldValues.jso
 # build project and its dependencies
 $ dotnet build
 # start and build docker container
-$ make dr-start
-# publish docker container
-# note: you must increment the version number in `socotra-app.json`
+$ make dr-start-marketplace
+# note: this cmd will increment the second digit of the version number in the `socotra-app.json`
 # note: deploys updated version of the app to socotra marketplace
-$ socotra-app publish docker vin-lookup:latest
+$ make publish-app
 ```
 
 ## Test 
 ```bash
-# test suite
+# test suitedr-start-local
 $ dotnet test
 ```
 ## Support

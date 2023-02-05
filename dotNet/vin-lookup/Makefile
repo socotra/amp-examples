@@ -1,4 +1,3 @@
-SHELL := bash
 .ONESHELL:
 .SHELLFLAGS := -eu -o pipefail -c
 .PHONY:
@@ -28,10 +27,28 @@ publish:
 run:
 	dotnet run
 
-dr-build:
-	pushd src/Socotra.VinLookup && docker build . --tag  vin-lookup-example:latest --build-arg VERSION=$(VERSION) --build-arg COMMITSHA=$(COMMIT_SHA) && popd
+publish-app:
+	pushd ./src/Socotra.VinLookup
+	socotra-app version minor
+	socotra-app publish docker vin-lookup-example:latest
+	popd
 
-dr-start: dr-build dr-stop
+dr-build-marketplace:
+	pushd ./src/Socotra.VinLookup
+	docker build . --tag  vin-lookup-example:latest --build-arg VERSION=$(VERSION) --build-arg COMMITSHA=$(COMMIT_SHA) --build-arg arch=amd64
+	popd
+
+dr-build-locally:
+	pushd src/Socotra.VinLookup
+	docker build . --tag  vin-lookup-example:latest --build-arg VERSION=$(VERSION) --build-arg COMMITSHA=$(COMMIT_SHA) --build-arg arch=arm64
+	popd
+
+dr-start-local: dr-build-locally dr-stop
+	(docker rm vin-lookup-example || echo "Nothing to cleanup")
+	docker run --rm -d --name vin-lookup-example --publish 127.0.0.1:$(LOCAL_PORT):$(LOCAL_PORT) vin-lookup-example:latest
+	docker ps
+
+dr-start-marketplace: dr-build-marketplace dr-stop
 	(docker rm vin-lookup-example || echo "Nothing to cleanup")
 	docker run --rm -d --name vin-lookup-example --publish 127.0.0.1:$(LOCAL_PORT):$(LOCAL_PORT) vin-lookup-example:latest
 	docker ps

@@ -1,5 +1,5 @@
 # Dockerfile
-ARG arch=arm64
+ARG arch
 FROM --platform=linux/${arch} mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 
