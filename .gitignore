@@ -3,6 +3,7 @@
 *.out
 *.swp
 .dcignore
+.vscode
 .idea
 node_modules
 mono_crash*
