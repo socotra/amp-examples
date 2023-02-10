@@ -69,10 +69,14 @@ namespace MainVinController.Controllers
                 switch (vinLocation)
                 {
                     case PolicyConstants.fieldType.isFieldValueField:
-                        vins[0] = await _vinApiHelper.AddFieldValueVinInfo(request, vinNameSpace);
+                        vins[0] = await _vinApiHelper.AddFieldValueVinInfo(request, vinNameSpace, vinLocation);
                         break;
                     case PolicyConstants.fieldType.isExposureField:
-                        vins = await _vinApiHelper.AddExposuresVinInfo(request, vins, vinNameSpace);
+                        vins = await _vinApiHelper.AddExposuresVinInfo(request, vins, vinNameSpace, vinLocation);
+                        break;
+                    case PolicyConstants.fieldType.isFieldValueGroup:
+                        string groupName = _stateApiHelper.getGroupName(vinMappedPath);
+                        vins = await _vinApiHelper.AddFieldGroupVinInfo(request, vins, vinNameSpace, groupName, vinLocation);
                         break;
                 }
                 logRequest(vins, "Current Vin");
