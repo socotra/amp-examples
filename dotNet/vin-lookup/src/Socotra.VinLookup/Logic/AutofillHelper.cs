@@ -20,7 +20,7 @@ public class AutofillHelper
             switch (fieldLocation)
             {
                 case PolicyConstants.fieldType.isFieldValueField:
-                    if (_validator.AutofillRequestContainsFieldValues(resp.fieldValues))
+                    if (_validator.EnsureVinFieldIsContained(vins[0]) && _validator.AutofillRequestContainsFieldValues(resp.fieldValues))
                     {
                         string[] fieldValPolicy = { vins?[0]?.values[fieldMappingType] ?? "" };
                         resp.fieldValues[fieldName] = fieldValPolicy;
@@ -31,16 +31,40 @@ public class AutofillHelper
                     {
                         foreach (VinsInfo vin in vins)
                         {
-                            foreach (AutofillExposureUpdateRequest exposure in resp.updateExposures)
-                            {
-                                if (_validator.MatchingValues(exposure.exposureLocator ?? "", vin.exposureLocator))
+                            if(_validator.EnsureVinFieldIsContained(vin)) {
+                                foreach (AutofillExposureUpdateRequest exposure in resp.updateExposures)
                                 {
-                                    string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
-                                    if (resp.updateExposures.Any())
+                                    if (_validator.MatchingValues(exposure.exposureLocator ?? "", vin.exposureLocator))
                                     {
-                                        exposure.fieldValues[fieldName] = fieldVal;
-                                    }
+                                        string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
+                                        if (resp.updateExposures.Any())
+                                        {
+                                            exposure.fieldValues[fieldName] = fieldVal;
+                                        }
 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
+                case PolicyConstants.fieldType.isFieldValueGroup:
+                    if (resp.updateFieldGroups.Any())
+                    {
+                        foreach (VinsInfo vin in vins)
+                        {
+                            if(_validator.EnsureVinFieldIsContained(vin)) {
+                                foreach (AutofillFieldGroupUpdateRequest fieldGroup in resp.updateFieldGroups)
+                                {
+                                    if (_validator.MatchingValues(fieldGroup.fieldGroupLocator ?? "", vin.fieldGroupLocator))
+                                    {
+                                        string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
+                                        if (resp.updateFieldGroups.Any())
+                                        {
+                                            fieldGroup.fieldValues[fieldName] = fieldVal;
+                                        }
+
+                                    }
                                 }
                             }
                         }
@@ -70,6 +94,14 @@ public class AutofillHelper
             if (request.updates.addExposures.Any())
             {
                 resp.addExposures = request.updates.addExposures;
+            }
+            if (request.updates.updateFieldGroups.Any())
+            {
+                resp.updateFieldGroups = request.updates.updateFieldGroups;
+            }
+            if (request.updates.addFieldGroups.Any())
+            {
+                resp.addFieldGroups = request.updates.addFieldGroups;
             }
         }
         return resp;

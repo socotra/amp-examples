@@ -1,6 +1,11 @@
 using System.Collections.Generic;
 
 namespace Socotra.VinLookup.Models;
+
+public static class EmptyValues
+{
+    public const string none = "none";
+}
 public static class VinApiValues
 {
     public const string make = "Make";

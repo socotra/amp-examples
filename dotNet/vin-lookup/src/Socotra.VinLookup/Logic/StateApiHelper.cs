@@ -14,8 +14,10 @@ public class StateApiHelper
         {
             var response = new StateApiResponse();
             // NOTE: To test field-value payload, use "Models/StateApi/MockStateApi/MockedMappingsFieldVals"
-            response.mappings[0].productName = MockedMappingsExposures.productName;
-            response.mappings[0].fields = MockedMappingsExposures.fields;
+            // NOTE: To test field-groups paylod, "Models/StateApi/MockStateApi/MockedMappingsFieldGroups"
+            // NOTE: To test field-groups paylod, "Models/StateApi/MockStateApi/MockedMappingsExposures"
+            response.mappings[0].productName = MockedMappingsFieldGroups.productName;
+            response.mappings[0].fields = MockedMappingsFieldGroups.fields;
             return response;
         }
 
@@ -30,6 +32,30 @@ public class StateApiHelper
         StateApiResponse StateApiResp = JsonSerializer.Deserialize<StateApiResponse>(responseJson) ?? new StateApiResponse();
 
         return StateApiResp;
+    }
+
+    public string getGroupName (string path) {
+        if (_validator.ValueIsPresent(path))
+        {
+            string[] pathName = path.Split("].");
+            int initialIndx = pathName[^1].IndexOf("'");
+            string val = pathName[pathName.Length - 2];
+            string firstParse = val.Substring(
+                initialIndx + 1
+            );
+            int secondIndx = firstParse.LastIndexOf("'");
+            string secondName = firstParse.Substring(
+                0, secondIndx
+            );
+            int thirdIndx = secondName.IndexOf("'");
+
+            string groupName = secondName.Substring(
+                thirdIndx + 1
+            );
+            
+            return groupName;
+        }
+        return "";
     }
 
     public string GetFieldName(string path)

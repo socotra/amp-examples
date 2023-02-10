@@ -1,0 +1,29 @@
+{
+    "policyholderLocator": "031470bb-1f72-4da4-9f1d-80a446ed17b4",
+    "productName": "personal-auto",
+    "operation": "newBusiness",
+    "operationType": "update",
+    "updates": {
+        "policyEndTimestamp": "1707465600000",
+        "policyStartTimestamp": "1675929600000",
+        "endorsementName": "",
+        "endorsementEffectiveTimestamp": "",
+        "fieldValues": {},
+        "addFieldGroups": [],
+        "updateFieldGroups": [
+        {
+            "fieldGroupLocator": "6ca76dfc-e5c5-4673-aa80-2f3862f846b1",
+            "fieldName": "vinFG",
+            "fieldValues": {
+            "vin": ["JTDEAMDE1N30125042"]
+            }
+        }
+        ],
+        "updateExposures": [],
+        "addExposures": []
+    },
+    "policyLocator": "100190342",
+    "endorsementLocator": "",
+    "quoteLocator": "",
+    "renewalLocator": ""
+}

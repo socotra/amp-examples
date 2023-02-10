@@ -32,25 +32,46 @@ public class Validator
         return isMatching;
     }
 
-    public bool CheckPathInAutofillRequest(AutofillRequest request, string vinNameSpace, bool isExposureField = false, int idx = 0)
+    public bool EnsureVinFieldIsContained (VinsInfo vinInfo) {
+        if (vinInfo is not null && vinInfo.vin == EmptyValues.none) {
+            return false;
+        }
+        return true;
+    }   
+
+    public bool CheckPathInAutofillRequest(AutofillRequest request, string vinNameSpace, string vinLocation, int idx = 0)
     {
-        if (isExposureField == false) {
-            var pathExistsInFieldVals = request.updates?.fieldValues is not null
+        switch (vinLocation)
+        {
+            case PolicyConstants.fieldType.isFieldValueField:
+                var pathExistsInFieldVals = request.updates?.fieldValues is not null
                                 && request.updates.fieldValues.ContainsKey(vinNameSpace)
                                 && ((request.updates.fieldValues[vinNameSpace]).Any())
                                 && (ValueIsPresent(request.updates.fieldValues[vinNameSpace][0]));
-            return pathExistsInFieldVals;
-        }
-        var pathExistsInExposure = request.updates?.updateExposures is not null
+                return pathExistsInFieldVals;
+            case PolicyConstants.fieldType.isFieldValueGroup:
+                var pathExistsInFieldGroups = request.updates?.updateFieldGroups is not null
                                 && idx >= 0
-                                && request.updates.updateExposures[idx] is not null
-                                && request.updates.updateExposures[idx].fieldValues.ContainsKey(vinNameSpace)
-                                && request.updates.updateExposures[idx].fieldValues is not null
-                                && vinNameSpace is not null 
-                                && request.updates.updateExposures[idx].fieldValues[vinNameSpace] is not null
-                                && request.updates.updateExposures[idx].fieldValues[vinNameSpace].Any()
-                                && ValueIsPresent(request.updates.updateExposures[idx].fieldValues[vinNameSpace][0].ToString());
-        return pathExistsInExposure;
+                                && request.updates.updateFieldGroups[idx] is not null
+                                && request.updates.updateFieldGroups[idx].fieldValues is not null
+                                && request.updates.updateFieldGroups[idx].fieldValues.ContainsKey(vinNameSpace)
+                                && vinNameSpace is not null
+                                && request.updates.updateFieldGroups[idx].fieldValues[vinNameSpace]!.Any()
+                                && ValueIsPresent(request.updates.updateFieldGroups[idx].fieldValues[vinNameSpace]![0].ToString());
+                return pathExistsInFieldGroups;
+            case PolicyConstants.fieldType.isExposureField:
+                var pathExistsInExposure = request.updates?.updateExposures is not null
+                                    && idx >= 0
+                                    && request.updates.updateExposures[idx] is not null
+                                    && request.updates.updateExposures[idx].fieldValues is not null
+                                    && request.updates.updateExposures[idx].fieldValues.ContainsKey(vinNameSpace)
+                                    && vinNameSpace is not null
+                                    && request.updates.updateExposures[idx].fieldValues[vinNameSpace]!.Any()
+                                    && ValueIsPresent(request.updates.updateExposures[idx].fieldValues[vinNameSpace]![0].ToString());
+                return pathExistsInExposure;
+
+        }
+        return false;
 
     }
 }

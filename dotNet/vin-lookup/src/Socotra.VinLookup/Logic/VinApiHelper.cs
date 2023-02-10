@@ -8,23 +8,27 @@ public class VinApiHelper
 {
     private readonly Validator _validator = new Validator();
 
-    async internal Task<VinsInfo> AddFieldValueVinInfo(AutofillRequest request, string vinNameSpace)
+    async internal Task<VinsInfo> AddFieldValueVinInfo(AutofillRequest request, string vinNameSpace, string vinLocation)
     {
         var result = new VinsInfo
         {
             vin = string.Empty
         };
-        
-        if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, false))
-        {
-            var vinToLookup = request.updates.fieldValues[vinNameSpace].First();
-            result = await GetVinsInfo(vinToLookup);
+        if (request.updates.fieldValues.ContainsKey(vinNameSpace))
+        {   
+            if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, vinLocation))
+            {
+                var vinToLookup = request.updates.fieldValues[vinNameSpace].First();
+                result = await GetVinsInfo(vinToLookup);
+            }
+        } else {
+            result.vin = EmptyValues.none;
         }
 
         return result;
     }
 
-    async internal Task<VinsInfo[]> AddExposuresVinInfo(AutofillRequest request, VinsInfo[] vins, string vinNameSpace)
+    async internal Task<VinsInfo[]> AddExposuresVinInfo(AutofillRequest request, VinsInfo[] vins, string vinNameSpace, string vinLocation)
     {
         var vinsWithInfo = vins;
         if (_validator.AutofillRequestContainsUpdates(request) &&
@@ -32,20 +36,64 @@ public class VinApiHelper
         {
             for (int i = 0; i < request.updates.updateExposures.Length; i++)
             {
-                vinsWithInfo[i] = new VinsInfo()
-                {
-                    vin = string.Empty,
-                    exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? ""
-                };
+                if (request.updates.updateExposures[i].fieldValues.ContainsKey(vinNameSpace)) {
+                    vinsWithInfo[i] = new VinsInfo()
+                    {
+                        vin = string.Empty,
+                        exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? ""
+                    };
 
-                if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, true, i))
-                {
-                    var vinToLook = request.updates.updateExposures[i].fieldValues?[vinNameSpace]?[0]?.ToString() ?? "";
-                    var vinRetrieved = await GetVinsInfo(vinToLook);
-                    vinRetrieved.exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? "";
-                    vinsWithInfo[i] = vinRetrieved;
+                    if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, vinLocation, i))
+                    {
+                        var vinToLook = request.updates.updateExposures[i].fieldValues?[vinNameSpace]?[0]?.ToString() ?? "";
+                        var vinRetrieved = await GetVinsInfo(vinToLook);
+                        vinRetrieved.exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? "";
+                        vinsWithInfo[i] = vinRetrieved;
+                    }
+                } else {
+                    vinsWithInfo[i] = new VinsInfo()
+                    {
+                        vin = EmptyValues.none,
+                        exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? ""
+                    };
                 }
+            }
+        }
+        return vinsWithInfo;
+    }
+    
+    async internal Task<VinsInfo[]> AddFieldGroupVinInfo (AutofillRequest request, VinsInfo[] vins, string vinNameSpace, string fieldGroupName, string vinLocation)
+    {
+        var vinsWithInfo = vins;
+        if (_validator.AutofillRequestContainsUpdates(request) &&
+                request.updates.updateFieldGroups.Any())
+        {
+            for (int i = 0; i < request.updates.updateFieldGroups.Length; i++)
+            {
+                if (request.updates.updateFieldGroups[i] is not null && 
+                    request.updates.updateFieldGroups[i].fieldName == fieldGroupName &&
+                    request.updates.updateFieldGroups[i].fieldValues is not null &&
+                    request.updates.updateFieldGroups[i].fieldValues.ContainsKey(vinNameSpace)) {
+                    vinsWithInfo[i] = new VinsInfo()
+                    {
+                        vin = string.Empty,
+                        fieldGroupLocator = request.updates.updateFieldGroups[i].fieldGroupLocator?.ToString() ?? ""
+                    };
 
+                    if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, vinLocation, i))
+                    {
+                        var vinToLook = request.updates.updateFieldGroups[i].fieldValues?[vinNameSpace]?[0]?.ToString() ?? "";
+                        var vinRetrieved = await GetVinsInfo(vinToLook);
+                        vinRetrieved.fieldGroupLocator = request.updates.updateFieldGroups[i].fieldGroupLocator?.ToString() ?? "";
+                        vinsWithInfo[i] = vinRetrieved;
+                    }
+                } else {
+                    vinsWithInfo[i] = new VinsInfo()
+                    {
+                        vin = EmptyValues.none,
+                        fieldGroupLocator = request.updates.updateFieldGroups[i].fieldGroupLocator?.ToString() ?? ""
+                    };
+                }
             }
         }
         return vinsWithInfo;
@@ -59,7 +107,6 @@ public class VinApiHelper
             vin = vinToLookup
         };
 
-        //var result = AutoMapper.Map<CapturedVinFieldValues,VinsInfo>(actualVinResp);
         result.values[MappingValues.make] = actualVinResp?.make?.ToString() ?? "";
         result.values[MappingValues.model] = actualVinResp?.model?.ToString() ?? "";
         result.values[MappingValues.year] = actualVinResp?.year?.ToString() ?? "";
@@ -127,5 +174,19 @@ public class VinApiHelper
         return results;
     }
 
-    internal int CountAllVins(string vinLoc, AutofillResponse resp) => vinLoc != PolicyConstants.fieldType.isFieldValueField ? resp.updateExposures.Length : 1;
+    public int CountAllVins (string vinLoc, AutofillResponse resp)
+    {
+        switch (vinLoc) 
+        {
+            case PolicyConstants.fieldType.isFieldValueField:
+                return 1;
+            case PolicyConstants.fieldType.isExposureField:
+                // TODO: combine length with addExposures
+                return resp.updateExposures.Length;
+            case PolicyConstants.fieldType.isFieldValueGroup:
+                // TODO: combine length with addFieldGroups
+                return resp.updateFieldGroups.Length;
+        }
+        return 1;
+    }
 }
