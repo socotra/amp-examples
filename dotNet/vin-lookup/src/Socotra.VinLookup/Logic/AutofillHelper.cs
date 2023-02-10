@@ -31,7 +31,8 @@ public class AutofillHelper
                     {
                         foreach (VinsInfo vin in vins)
                         {
-                            if(_validator.EnsureVinFieldIsContained(vin)) {
+                            if (_validator.EnsureVinFieldIsContained(vin))
+                            {
                                 foreach (AutofillExposureUpdateRequest exposure in resp.updateExposures)
                                 {
                                     if (_validator.MatchingValues(exposure.exposureLocator ?? "", vin.exposureLocator))
@@ -47,13 +48,37 @@ public class AutofillHelper
                             }
                         }
                     }
+                    if (resp.addExposures.Any())
+                    {
+                        foreach (VinsInfo vin in vins)
+                        {
+                            if (_validator.EnsureVinFieldIsContained(vin))
+                            {   
+                                int index = 0;
+                                foreach (AutofillExposureCreateRequest exposure in resp.addExposures)
+                                {
+                                    if (_validator.MatchingValues(index.ToString() ?? "", vin.exposureLocator))
+                                    {
+                                        string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
+                                        if (resp.addExposures.Any())
+                                        {
+                                            exposure.fieldValues[fieldName] = fieldVal;
+                                        }
+
+                                    }
+                                    index++;
+                                }
+                            }
+                        }
+                    }
                     break;
                 case PolicyConstants.fieldType.isFieldValueGroup:
                     if (resp.updateFieldGroups.Any())
                     {
                         foreach (VinsInfo vin in vins)
                         {
-                            if(_validator.EnsureVinFieldIsContained(vin)) {
+                            if (vin is not null && _validator.EnsureVinFieldIsContained(vin))
+                            {
                                 foreach (AutofillFieldGroupUpdateRequest fieldGroup in resp.updateFieldGroups)
                                 {
                                     if (_validator.MatchingValues(fieldGroup.fieldGroupLocator ?? "", vin.fieldGroupLocator))
@@ -65,6 +90,29 @@ public class AutofillHelper
                                         }
 
                                     }
+                                }
+                            }
+                        }
+                    }
+                    if (resp.addFieldGroups.Any())
+                    {
+                        foreach (VinsInfo vin in vins)
+                        {
+                            if (vin is not null && _validator.EnsureVinFieldIsContained(vin))
+                            {
+                                int index = 0;
+                                foreach (AutofillFieldGroupCreateRequest fieldGroup in resp.addFieldGroups)
+                                {
+                                    if (_validator.MatchingValues(index.ToString() ?? "", vin.fieldGroupLocator))
+                                    {
+                                        string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
+                                        if (resp.addFieldGroups.Any())
+                                        {
+                                            fieldGroup.fieldValues[fieldName] = fieldVal;
+                                        }
+
+                                    }
+                                    index++;
                                 }
                             }
                         }

@@ -12,7 +12,7 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("Socotra.VinLookup")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute("vin-lookup@2023-02-10T04:08:02")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("vin-lookup@2023-02-10T23:29:26")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("Socotra.VinLookup")]

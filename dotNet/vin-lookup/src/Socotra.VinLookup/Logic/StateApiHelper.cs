@@ -16,8 +16,8 @@ public class StateApiHelper
             // NOTE: To test field-value payload, use "Models/StateApi/MockStateApi/MockedMappingsFieldVals"
             // NOTE: To test field-groups paylod, "Models/StateApi/MockStateApi/MockedMappingsFieldGroups"
             // NOTE: To test field-groups paylod, "Models/StateApi/MockStateApi/MockedMappingsExposures"
-            response.mappings[0].productName = MockedMappingsFieldGroups.productName;
-            response.mappings[0].fields = MockedMappingsFieldGroups.fields;
+            response.mappings[0].productName = MockedMappingsExposures.productName;
+            response.mappings[0].fields = MockedMappingsExposures.fields;
             return response;
         }
 

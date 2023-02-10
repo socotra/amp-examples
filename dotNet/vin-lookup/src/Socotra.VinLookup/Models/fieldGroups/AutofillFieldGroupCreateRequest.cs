@@ -8,5 +8,5 @@ public class AutofillFieldGroupCreateRequest
     public string? fieldName { get; set; }
 
     // optional
-    public Dictionary<string, string[]>? fieldValues { get; set; }
+    public Dictionary<string, string[]?> fieldValues { get; set; } = new Dictionary<string, string[]?>() { };
 }

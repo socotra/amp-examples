@@ -14,5 +14,5 @@ public class AutofillExposureCreateRequest
     public FieldGroupCreateRequest[] fieldGroups { get; set; } = Array.Empty<FieldGroupCreateRequest>();
 
     // optional
-    public Dictionary<string, string[]>? fieldValues { get; set; }
+    public Dictionary<string, string[]?> fieldValues { get; set; } = new Dictionary<string, string[]?>() { };
 }
