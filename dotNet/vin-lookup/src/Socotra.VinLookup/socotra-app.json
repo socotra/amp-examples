@@ -1,6 +1,6 @@
 {
-  "name": "socotra/vin-lookup-example",
-  "version": "2.9.1",
+  "name": "socotra/vin-lookup",
+  "version": "3.0.0",
   "changeLogFile": "./CHANGELOG.md",
   "app": {},
   "socotra": {
