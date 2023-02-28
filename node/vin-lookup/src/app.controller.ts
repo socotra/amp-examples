@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { Request } from 'express';
 import { AppService } from './app.service';
 import { AutofillPayload, AutofillResponse } from './socotra/autofill';
@@ -7,8 +7,12 @@ import { State } from './state/state.decorator';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
+  @Get("/health")
+  checkHealth(): string {
+    return this.appService.checkHealth();
+  }
 
-  @Post()
+  @Post("/vehicleLookup")
   async autofill(
     @Req() req: Request,
     @Body() body: AutofillPayload,

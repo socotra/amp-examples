@@ -7,6 +7,10 @@ import { VinService } from './vin/vin.service';
 
 @Injectable()
 export class AppService {
+  checkHealth (): string {
+    return 'Healthy!';
+  }
+  
   async autofill(
     req: Request,
     body: AutofillPayload,

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import * as jsonpath from 'jsonpath';
 import { AutofillPayload } from '../socotra/autofill';
+import { MockedStateRespMappedExposures } from './state.constants';
 
 Injectable();
 export class StateService {
@@ -11,10 +12,16 @@ export class StateService {
   ): Promise<StateResponse | undefined> {
     console.log('getState');
     try {
-      const response = await axios.get(`${stateApi}/state/${key}`);
-      return response.data;
+      if (key != null) {
+        const response = await axios.get(`${stateApi}/state/${key}`);
+        return response.data;
+      } else {
+        const response = MockedStateRespMappedExposures as StateResponse;
+        console.log("State Response " + JSON.stringify(response));
+        return response;
+      }
     } catch (err) {
-      console.error('Error retrieving the app config');
+      console.error("Error retrieving the app config");
       return undefined;
     }
   }
