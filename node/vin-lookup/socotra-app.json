@@ -7,7 +7,7 @@
   "socotra": {
     "autofill": [
       {
-        "path": "/",
+        "path": "/vehicleLookup",
         "operations": [
           "newBusiness.*",
           "renewal.update",
