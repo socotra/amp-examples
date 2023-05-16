@@ -14,10 +14,11 @@ public class StateApiHelper
         {
             var response = new StateApiResponse();
             // NOTE: To test field-value payload, use "Models/StateApi/MockStateApi/MockedMappingsFieldVals"
-            // NOTE: To test field-groups paylod, "Models/StateApi/MockStateApi/MockedMappingsFieldGroups"
-            // NOTE: To test field-groups paylod, "Models/StateApi/MockStateApi/MockedMappingsExposures"
-            response.mappings[0].productName = MockedMappingsExposures.productName;
-            response.mappings[0].fields = MockedMappingsExposures.fields;
+            // NOTE: To test field-groups payload, "Models/StateApi/MockStateApi/MockedMappingsFieldGroups"
+            // NOTE: To test exposures payload, "Models/StateApi/MockStateApi/MockedMappingsExposures"
+            // NOTE: To test field-groups w/n exposures payload, "Models/StateApi/MockStateApi/MockedMappingsExposureFG"
+            response.mappings[0].productName = MockedMappingsExposureFG.productName;
+            response.mappings[0].fields = MockedMappingsExposureFG.fields;
             return response;
         }
 
