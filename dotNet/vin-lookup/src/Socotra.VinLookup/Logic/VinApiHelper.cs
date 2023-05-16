@@ -162,6 +162,116 @@ public class VinApiHelper
         VinsInfo[] combinedVins = vinsWithInfoUpdate.Concat(vinsWithInfoAdd).ToArray();
         return combinedVins;
     }
+    async internal Task<VinsInfo[]> AddExposureFGVinInfo (AutofillRequest request, VinsInfo[] vins, string vinNameSpace, string fieldGroupName, string vinLocation)
+    {
+        // we need to iterate each exposure and get the FGs
+        VinsInfo[] vinsWithInfoUpdate = new VinsInfo[request.updates.updateExposures.Length];
+        if (_validator.AutofillRequestContainsUpdates(request) &&
+                request.updates.updateExposures.Any())
+        {
+            for (int i = 0; i < request.updates.updateExposures.Length; i++)
+            {
+                if (request.updates.updateExposures[i].updateFieldGroups is not null && request.updates.updateExposures[i].updateFieldGroups.Length > 0) {
+                    for (int j = 0; j < request.updates.updateExposures[i].updateFieldGroups.Length; j++) {
+                        if (request.updates.updateExposures[i].updateFieldGroups[j].fieldValues.ContainsKey(vinNameSpace))
+                        {
+                            vinsWithInfoUpdate[i] = new VinsInfo()
+                            {
+                                vin = string.Empty,
+                                exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? "",
+                                fieldGroupLocator = request.updates.updateExposures[i].updateFieldGroups[j].fieldGroupLocator?.ToString() ?? "",
+                            };
+                            if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, vinLocation, i, false, j))
+                            {
+                                var vinToLook = request.updates.updateExposures[i].updateFieldGroups[j].fieldValues?[vinNameSpace]?[0]?.ToString() ?? "";
+                                Console.WriteLine("vinToLook!");
+                                Console.WriteLine(vinToLook);
+                                var vinRetrieved = await GetVinsInfo(vinToLook);
+                                vinRetrieved.exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? "";
+                                vinRetrieved.fieldGroupLocator = request.updates.updateExposures[i].updateFieldGroups[j].fieldGroupLocator?.ToString() ?? "";
+                                vinsWithInfoUpdate[i] = vinRetrieved;
+                            }
+                        } else {
+                            vinsWithInfoUpdate[i] = new VinsInfo()
+                            {
+                                vin = EmptyValues.none,
+                                exposureLocator = request.updates.updateExposures[i].exposureLocator?.ToString() ?? "",
+                                fieldGroupLocator = request.updates.updateExposures[i].updateFieldGroups[j].fieldGroupLocator?.ToString() ?? "",
+                            };
+                        }
+                    }
+                }
+            }
+        }
+        VinsInfo[] vinsWithInfoAdd = new VinsInfo[request.updates.addExposures.Length];
+        // if (_validator.AutofillRequestContainsUpdates(request) &&
+        //         request.updates.updateFieldGroups.Any())
+        // {
+        //     for (int i = 0; i < request.updates.updateFieldGroups.Length; i++)
+        //     {
+        //         if (request.updates.updateFieldGroups[i] is not null && 
+        //             request.updates.updateFieldGroups[i].fieldName == fieldGroupName &&
+        //             request.updates.updateFieldGroups[i].fieldValues is not null &&
+        //             request.updates.updateFieldGroups[i].fieldValues.ContainsKey(vinNameSpace)) {
+        //             vinsWithInfoUpdate[i] = new VinsInfo()
+        //             {
+        //                 vin = string.Empty,
+        //                 fieldGroupLocator = request.updates.updateFieldGroups[i].fieldGroupLocator?.ToString() ?? ""
+        //             };
+
+        //             if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, vinLocation, i, false))
+        //             {
+        //                 var vinToLook = request.updates.updateFieldGroups[i].fieldValues?[vinNameSpace]?[0]?.ToString() ?? "";
+        //                 var vinRetrieved = await GetVinsInfo(vinToLook);
+        //                 vinRetrieved.fieldGroupLocator = request.updates.updateFieldGroups[i].fieldGroupLocator?.ToString() ?? "";
+        //                 vinsWithInfoUpdate[i] = vinRetrieved;
+        //             }
+        //         } else {
+        //             vinsWithInfoUpdate[i] = new VinsInfo()
+        //             {
+        //                 vin = EmptyValues.none,
+        //                 fieldGroupLocator = request.updates.updateFieldGroups[i].fieldGroupLocator?.ToString() ?? ""
+        //             };
+        //         }
+        //     }
+        // }
+
+        // VinsInfo[] vinsWithInfoAdd = new VinsInfo[request.updates.addFieldGroups.Length];
+        // if (_validator.AutofillRequestContainsUpdates(request) &&
+        //         request.updates.addFieldGroups.Any())
+        // {
+        //     for (int i = 0; i < request.updates.addFieldGroups.Length; i++)
+        //     {
+        //         if (request.updates.addFieldGroups[i] is not null && 
+        //             request.updates.addFieldGroups[i].fieldName == fieldGroupName &&
+        //             request.updates.addFieldGroups[i].fieldValues is not null &&
+        //             request.updates.addFieldGroups[i].fieldValues.ContainsKey(vinNameSpace)) {
+        //             vinsWithInfoAdd[i] = new VinsInfo()
+        //             {
+        //                 vin = string.Empty,
+        //                 fieldGroupLocator = i.ToString()
+        //         };
+
+        //             if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, vinLocation, i, true))
+        //             {
+        //                 var vinToLook = request.updates.addFieldGroups[i].fieldValues?[vinNameSpace]?[0]?.ToString() ?? "";
+        //                 var vinRetrieved = await GetVinsInfo(vinToLook);
+        //                 vinRetrieved.fieldGroupLocator = i.ToString();
+        //                 vinsWithInfoAdd[i] = vinRetrieved;
+        //             }
+        //         } else {
+        //             vinsWithInfoAdd[i] = new VinsInfo()
+        //             {
+        //                 vin = EmptyValues.none,
+        //                 fieldGroupLocator = i.ToString()
+        //             };
+        //         }
+        //     }
+        // }
+        VinsInfo[] combinedVins = vinsWithInfoUpdate.Concat(vinsWithInfoAdd).ToArray();
+        return combinedVins;
+    }
+
     async internal Task<VinsInfo> GetVinsInfo(string vinToLookup)
     {
         CapturedVinFieldValues actualVinResp = await RetrieveVIN(vinToLookup);
@@ -250,6 +360,10 @@ public class VinApiHelper
             case PolicyConstants.fieldType.isFieldValueGroup:
                 int totalFieldGroups = resp.updateFieldGroups.Length + resp.addFieldGroups.Length;
                 return totalFieldGroups;
+            // TODO!
+            case PolicyConstants.fieldType.isExposureGroup:
+                int totalExposureFG = resp.updateExposures.Length + resp.addExposures.Length;
+                return totalExposureFG;
         }
         return 1;
     }

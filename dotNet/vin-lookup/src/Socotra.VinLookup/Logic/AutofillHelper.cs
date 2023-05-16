@@ -119,6 +119,36 @@ public class AutofillHelper
                         }
                     }
                     break;
+                case PolicyConstants.fieldType.isExposureGroup:
+                    if (resp.updateExposures.Any())
+                    {
+                        foreach (VinsInfo vin in vins)
+                        {
+                            if (vin is not null && _validator.EnsureVinFieldIsContained(vin))
+                            {
+                                foreach (AutofillExposureUpdateRequest exposure in resp.updateExposures)
+                                {
+                                    if (_validator.MatchingValues(exposure.exposureLocator ?? "", vin.exposureLocator))
+                                    {
+                                        if (exposure.updateFieldGroups.Any())
+                                        {
+                                            foreach (AutofillFieldGroupUpdateRequest fieldGroup in exposure.updateFieldGroups) {
+                                                if (_validator.MatchingValues(fieldGroup.fieldGroupLocator ?? "", vin.fieldGroupLocator)) {
+                                                    string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
+                                                    if (exposure.updateFieldGroups.Any())
+                                                    {
+                                                        fieldGroup.fieldValues[fieldName] = fieldVal;
+                                                    }
+                                                }
+                                            }
+                                        }
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    break;
             }
         }
         return resp;

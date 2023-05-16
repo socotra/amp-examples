@@ -78,8 +78,12 @@ namespace MainVinController.Controllers
                         string groupName = _stateApiHelper.getGroupName(vinMappedPath);
                         vins = await _vinApiHelper.AddFieldGroupVinInfo(request, vins, vinNameSpace, groupName, vinLocation);
                         break;
+                    case PolicyConstants.fieldType.isExposureGroup:
+                        string exposureGroupName = _stateApiHelper.getGroupName(vinMappedPath);
+                        vins = await _vinApiHelper.AddExposureFGVinInfo(request, vins, vinNameSpace, exposureGroupName, vinLocation);
+                        break;
                 }
-                logRequest(vins[1], "Current Vin");
+                logRequest(vins[0], "Current Vin");
                 logRequest(resp, "Resp updates");
                 if (vins.Any())
                 {
