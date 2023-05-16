@@ -1,5 +1,11 @@
-# Socotra App MarketPlace Examples
+# Socotra App MarketPlace
 
-C# (.NET Core) and NodeJS apps in the relevant folders.
+[Public Documentation](https://socotra.atlassian.net/wiki/spaces/MD/overview?homepageId=2415952742)
 
-To publish your first app follow our [publishing guide](https://socotra.atlassian.net/wiki/spaces/MD/pages/2415952742/Publishing+on+App+MarketPlace)
+```
+├── README.md
+├── dotNet
+│   └── vin-lookup
+└── node
+    └── vin-lookup
+```
