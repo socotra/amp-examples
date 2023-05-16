@@ -59,6 +59,7 @@ public class AutofillHelper
                                 {
                                     if (_validator.MatchingValues(index.ToString() ?? "", vin.exposureLocator))
                                     {
+
                                         string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
                                         if (resp.addExposures.Any())
                                         {

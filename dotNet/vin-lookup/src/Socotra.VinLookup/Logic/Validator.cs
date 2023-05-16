@@ -49,7 +49,7 @@ public class Validator
                                     && vinNameSpace is not null
                                     && request.updates.addExposures[idx].fieldValues[vinNameSpace]!.Any()
                                     && ValueIsPresent(request.updates.addExposures[idx].fieldValues[vinNameSpace]![0].ToString());
-        }
+        } 
         return request.updates?.updateExposures is not null
                                     && idx >= 0
                                     && request.updates.updateExposures[idx] is not null

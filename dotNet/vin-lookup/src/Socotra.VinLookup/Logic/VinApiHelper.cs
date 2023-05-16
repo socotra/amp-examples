@@ -65,14 +65,12 @@ public class VinApiHelper
         {
             for (int i = 0; i < request.updates.addExposures.Length; i++)
             {
-                if (request.updates.addExposures[i] is not null &&
-                    request.updates.addExposures[i].fieldValues is not null &&
-                    request.updates.addExposures[i].fieldValues.ContainsKey(vinNameSpace)) {
+                if (request.updates.addExposures[i].fieldValues.ContainsKey(vinNameSpace)) {
                     vinsWithInfoAdd[i] = new VinsInfo()
                     {
                         vin = string.Empty,
                         exposureLocator = i.ToString()
-                };
+                    };
 
                     if (_validator.CheckPathInAutofillRequest(request, vinNameSpace, vinLocation, i, true))
                     {

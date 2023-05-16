@@ -238,3 +238,6 @@
 /Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/Debug/net6.0/Socotra.VinLookup.Tests.pdb
 /Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/Debug/net6.0/Socotra.VinLookup.Tests.genruntimeconfig.cache
 /Users/lydiamahrens/Desktop/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/Debug/net6.0/ref/Socotra.VinLookup.Tests.dll
+/Users/lydiamahrens/Desktop/AMP-Vendors/socotra/app-examples/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/Debug/net6.0/Socotra.VinLookup.Tests.dll
+/Users/lydiamahrens/Desktop/AMP-Vendors/socotra/app-examples/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/Debug/net6.0/refint/Socotra.VinLookup.Tests.dll
+/Users/lydiamahrens/Desktop/AMP-Vendors/socotra/app-examples/amp-examples/dotNet/vin-lookup/tests/Socotra.VinLookup.Tests/obj/Debug/net6.0/Socotra.VinLookup.Tests.pdb

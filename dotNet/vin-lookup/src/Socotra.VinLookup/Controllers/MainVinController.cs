@@ -79,7 +79,8 @@ namespace MainVinController.Controllers
                         vins = await _vinApiHelper.AddFieldGroupVinInfo(request, vins, vinNameSpace, groupName, vinLocation);
                         break;
                 }
-                logRequest(vins, "Current Vin");
+                logRequest(vins[1], "Current Vin");
+                logRequest(resp, "Resp updates");
                 if (vins.Any())
                 {
                     foreach (string fieldName in PossibleStateApiMappings.MappingValuesList)
