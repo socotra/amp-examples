@@ -58,7 +58,7 @@ namespace MainVinController.Controllers
                 string vinLocation = _stateApiHelper.FindPathType(vinMappedPath);
                 string vinNameSpace = _stateApiHelper.GetFieldName(vinMappedPath);
 
-                int numberOfVinFields = _vinApiHelper.CountAllVins(vinLocation, resp);
+                int numberOfVinFields = _vinApiHelper.CountAllVins(vinLocation, resp, vinNameSpace);
                 var vins = new VinsInfo[numberOfVinFields];
 
                 if (!(_validator.ValueIsPresent(vinLocation)))
@@ -80,10 +80,10 @@ namespace MainVinController.Controllers
                         break;
                     case PolicyConstants.fieldType.isExposureGroup:
                         string exposureGroupName = _stateApiHelper.getGroupName(vinMappedPath);
-                        vins = await _vinApiHelper.AddExposureFGVinInfo(request, vins, vinNameSpace, exposureGroupName, vinLocation);
+                        vins = await _vinApiHelper.AddExposureFGVinInfo(resp, request, vins, vinNameSpace, exposureGroupName, vinLocation);
                         break;
                 }
-                logRequest(vins[0], "Current Vin");
+                logRequest(vins[1], "Current Vin");
                 logRequest(resp, "Resp updates");
                 if (vins.Any())
                 {

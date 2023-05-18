@@ -60,7 +60,7 @@ public class Validator
                                     && ValueIsPresent(request.updates.updateExposures[idx].fieldValues[vinNameSpace]![0].ToString());
     }
     
-    public bool CheckPathInExposureFG (AutofillRequest request, string vinNameSpace, int idx = 0, bool isAdd = false, int idxFG = 0)
+    public bool CheckPathInExposureFG (AutofillRequest request, string vinNameSpace, int idx = 0, bool isAdd = false, int idxFG = 0, bool isAddOnUpdateExposure = false)
     {
         if (isAdd) {
             return request.updates?.addExposures is not null
@@ -73,6 +73,17 @@ public class Validator
                                     && request.updates.addExposures[idx].fieldGroups[idxFG].fieldValues[vinNameSpace]!.Any()
                                     && ValueIsPresent(request.updates.addExposures[idx].fieldGroups[idxFG].fieldValues[vinNameSpace]![0].ToString());
         } 
+        if (isAddOnUpdateExposure) {
+            return request.updates?.updateExposures is not null
+                                    && idx >= 0
+                                    && idxFG >= 0
+                                    && request.updates.updateExposures[idx] is not null
+                                    && request.updates.updateExposures[idx].addFieldGroups[idxFG] is not null
+                                    && request.updates.updateExposures[idx].addFieldGroups[idxFG].fieldValues.ContainsKey(vinNameSpace)
+                                    && vinNameSpace is not null
+                                    && request.updates.updateExposures[idx].addFieldGroups[idxFG].fieldValues[vinNameSpace]!.Any()
+                                    && ValueIsPresent(request.updates.updateExposures[idx].addFieldGroups[idxFG].fieldValues[vinNameSpace]![0].ToString());
+        }
         return request.updates?.updateExposures is not null
                                     && idx >= 0
                                     && idxFG >= 0
@@ -113,7 +124,7 @@ public class Validator
                                 && (ValueIsPresent(request.updates.fieldValues[vinNameSpace][0]));
     }
 
-    public bool CheckPathInAutofillRequest(AutofillRequest request, string vinNameSpace, string vinLocation, int idx = 0, bool isAdd = false, int idxFG = 0)
+    public bool CheckPathInAutofillRequest(AutofillRequest request, string vinNameSpace, string vinLocation, int idx = 0, bool isAdd = false, int idxFG = 0, bool isAddOnUpdateExposure = false)
     {
         // TODO: Move this logic to individual functions 
         switch (vinLocation)
@@ -125,7 +136,7 @@ public class Validator
             case PolicyConstants.fieldType.isExposureField:
                 return CheckPathInExposures(request, vinNameSpace, idx, isAdd);
             case PolicyConstants.fieldType.isExposureGroup:
-                return CheckPathInExposureFG(request, vinNameSpace, idx, isAdd, idxFG);
+                return CheckPathInExposureFG(request, vinNameSpace, idx, isAdd, idxFG, false);
 
         }
         return false;

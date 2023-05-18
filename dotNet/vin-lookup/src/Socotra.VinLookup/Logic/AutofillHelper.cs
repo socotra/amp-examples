@@ -142,6 +142,24 @@ public class AutofillHelper
                                                 }
                                             }
                                         }
+                                        if (exposure.addFieldGroups.Any())
+                                        {
+                                            int index = 0;
+                                            foreach (AutofillFieldGroupCreateRequest fieldGroup in exposure.addFieldGroups) {
+                                                string indexValFG = index + "fgLocator";
+
+                                                if (_validator.MatchingValues(indexValFG.ToString() ?? "", vin.fieldGroupLocator)) {
+                                                    if (exposure.addFieldGroups.Any()) {
+                                                        string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
+                                                        if (exposure.addFieldGroups.Any())
+                                                        {
+                                                            fieldGroup.fieldValues[fieldName] = fieldVal;
+                                                        }
+                                                    }
+                                                    index++;
+                                                }
+                                            }
+                                        }
 
                                     }
                                 }
