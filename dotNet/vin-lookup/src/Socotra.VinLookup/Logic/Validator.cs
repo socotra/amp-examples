@@ -62,16 +62,17 @@ public class Validator
     
     public bool CheckPathInExposureFG (AutofillRequest request, string vinNameSpace, int idx = 0, bool isAdd = false, int idxFG = 0)
     {
-        // if (isAdd) {
-        //     return request.updates?.addExposures is not null
-        //                             && idx >= 0
-        //                             && request.updates.addExposures[idx] is not null
-        //                             && request.updates.addExposures[idx].fieldValues is not null
-        //                             && request.updates.addExposures[idx].fieldValues.ContainsKey(vinNameSpace)
-        //                             && vinNameSpace is not null
-        //                             && request.updates.addExposures[idx].fieldValues[vinNameSpace]!.Any()
-        //                             && ValueIsPresent(request.updates.addExposures[idx].fieldValues[vinNameSpace]![0].ToString());
-        // } 
+        if (isAdd) {
+            return request.updates?.addExposures is not null
+                                    && idx >= 0
+                                    && idxFG >= 0
+                                    && request.updates.addExposures[idx] is not null
+                                    && request.updates.addExposures[idx].fieldGroups[idxFG] is not null
+                                    && request.updates.addExposures[idx].fieldGroups[idxFG].fieldValues.ContainsKey(vinNameSpace)
+                                    && vinNameSpace is not null
+                                    && request.updates.addExposures[idx].fieldGroups[idxFG].fieldValues[vinNameSpace]!.Any()
+                                    && ValueIsPresent(request.updates.addExposures[idx].fieldGroups[idxFG].fieldValues[vinNameSpace]![0].ToString());
+        } 
         return request.updates?.updateExposures is not null
                                     && idx >= 0
                                     && idxFG >= 0

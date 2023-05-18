@@ -52,7 +52,7 @@ public class AutofillHelper
                     {
                         foreach (VinsInfo vin in vins)
                         {
-                            if (_validator.EnsureVinFieldIsContained(vin))
+                            if (vin is not null && _validator.EnsureVinFieldIsContained(vin))
                             {   
                                 int index = 0;
                                 foreach (AutofillExposureCreateRequest exposure in resp.addExposures)
@@ -143,6 +143,38 @@ public class AutofillHelper
                                             }
                                         }
 
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (resp.addExposures.Any())
+                    {
+                        foreach (VinsInfo vin in vins)
+                        {
+                            if (vin is not null && _validator.EnsureVinFieldIsContained(vin))
+                            {
+                                int index = 0;
+                                foreach (AutofillExposureCreateRequest exposure in resp.addExposures)
+                                {
+                                    string indexValExp = index + "expLocator";
+                                    string indexValFG = index + "fgLocator";
+
+                                    if (_validator.MatchingValues(indexValExp.ToString() ?? "", vin.exposureLocator))
+                                    {
+                                        if (exposure.fieldGroups.Any())
+                                        {
+                                            foreach (FieldGroupCreateRequest fieldGroup in exposure.fieldGroups) {
+                                                if (_validator.MatchingValues(indexValFG.ToString() ?? "", vin.fieldGroupLocator)) {
+                                                    string[] fieldVal = { vin.values[fieldMappingType] ?? "" };
+                                                    if (exposure.fieldGroups.Any())
+                                                    {
+                                                        fieldGroup.fieldValues[fieldName] = fieldVal;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        index++;
                                     }
                                 }
                             }
